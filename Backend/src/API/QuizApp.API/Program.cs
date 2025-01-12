@@ -10,6 +10,8 @@ builder.Services.AddUsersModule();
 
 var app = builder.Build();
 
+app.UseUsersModule();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
