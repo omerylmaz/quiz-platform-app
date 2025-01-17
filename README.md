@@ -1,2 +1,2 @@
 # Ongoing Project (not finished)
-![Untitled (6)](https://github.com/user-attachments/assets/2f7c7d18-61a1-47ef-a84e-8c3a7d4943d6)
+![Untitled (7)](https://github.com/user-attachments/assets/7a6d696e-f9cc-494e-9aab-c291b7ebc82b)
