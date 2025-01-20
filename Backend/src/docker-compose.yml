@@ -1,9 +1,13 @@
 services:
   quizapp.api:
     image: ${DOCKER_REGISTRY-}quizappapi
+    container_name: Quiz.Api
     build:
       context: .
       dockerfile: API/QuizApp.API/Dockerfile
+    ports:
+      - 5000:8080
+      - 5001:8081
 
   quiz.database:
     image: postgres:latest
