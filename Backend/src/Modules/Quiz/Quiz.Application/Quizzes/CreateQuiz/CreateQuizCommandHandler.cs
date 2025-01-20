@@ -10,16 +10,13 @@ internal sealed class CreateQuizCommandHandler(
 {
     public async Task<Guid> Handle(CreateQuizCommand request, CancellationToken cancellationToken)
     {
-        Domain.Quizzes.Quiz quiz = new()
-        {
-            CreatedAt = DateTime.UtcNow,
-            CreatedByAI = request.CreatedByAI,
-            Description = request.Description,
-            Difficulty = request.Difficulty,
-            QuizSetId = request.QuizSetId,
-            Title = request.Title,
-            Id = Guid.NewGuid(),
-        };
+        var quiz = Domain.Quizzes.Quiz.Create(
+            request.QuizSetId,
+            request.Title,
+            request.Description,
+            request.CreatedByAI,
+            request.Difficulty);
+
 
         quizRepository.Add(quiz);
 
