@@ -16,7 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\Modules\Quiz\Quiz.API\Quiz.API.csproj" />
+      <ProjectReference Include="..\..\Modules\Quiz\Quiz.Infrastructure\Quiz.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>

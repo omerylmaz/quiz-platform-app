@@ -1,4 +1,4 @@
-using Quiz.API;
+using Quiz.Infrastructure;
 using QuizApp.API.Extensions;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);

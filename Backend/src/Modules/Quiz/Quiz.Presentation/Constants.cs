@@ -1,6 +1,6 @@
-﻿namespace Quiz.API;
+﻿namespace Quiz.Presentation;
 
-public static class Constants
+internal static class Constants
 {
     internal const string QuizzesSchema = "quizzes";
     internal const string QuizzesTag = "Quizzes";

@@ -1,4 +1,4 @@
-﻿namespace Quiz.API.Quizzes;
+﻿namespace Quiz.Domain.Quizzes;
 
 public sealed class Quiz
 {
@@ -12,7 +12,7 @@ public sealed class Quiz
 
     public bool CreatedByAI { get; set; }
 
-    public string Difficulty { get; set; }
+    public QuizDifficulty Difficulty { get; set; }
 
     public DateTime CreatedAt { get; set; }
 }

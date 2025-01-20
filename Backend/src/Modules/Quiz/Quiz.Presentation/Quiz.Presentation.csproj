@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="MediatR" Version="12.4.1" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\Quiz.Application\Quiz.Application.csproj" />
+	</ItemGroup>
+</Project>
