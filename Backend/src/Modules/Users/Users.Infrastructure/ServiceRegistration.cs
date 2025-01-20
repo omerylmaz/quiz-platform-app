@@ -9,7 +9,7 @@ public static class ServiceRegistration
     {
         return services;
     }
-    
+
     public static IApplicationBuilder UseInfrastructureServices(this IApplicationBuilder app)
     {
         return app;

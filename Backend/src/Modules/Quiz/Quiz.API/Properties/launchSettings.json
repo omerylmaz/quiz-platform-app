@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Quiz.API": {
+      "commandName": "Project"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker"
+    }
+  }
+}
