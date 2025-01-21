@@ -14,10 +14,6 @@ internal static class GetQuiz
         {
             QuizResponse quizResponse = await sender.Send(new GetQuizQuery(id), cancellationToken);
 
-            //QuizResponse? quiz = await context.Quizzes.Where(q => q.Id == id)
-            //.Select(q => new QuizResponse(q.Id, q.QuizSetId, q.Title, q.Description, q.CreatedByAI, q.Difficulty))
-            //.FirstOrDefaultAsync(cancellationToken);
-
             return quizResponse is null ? Results.NotFound() : Results.Ok(quizResponse);
         })
         .WithTags(Constants.QuizzesTag);

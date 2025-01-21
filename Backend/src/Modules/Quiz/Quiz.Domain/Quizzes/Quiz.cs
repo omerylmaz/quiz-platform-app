@@ -12,9 +12,9 @@ public sealed class Quiz : Entity
 
     public Guid QuizSetId { get; private set; }
 
-    public string Title { get; private set; }
+    public string? Title { get; private set; }
 
-    public string Description { get; private set; }
+    public string? Description { get; private set; }
 
     public bool CreatedByAI { get; private set; }
 

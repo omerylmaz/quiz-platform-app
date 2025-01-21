@@ -2,7 +2,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Quiz.Application.Quizzes;
+using Quiz.Application.Quizzes.CreateQuiz;
+using Quiz.Domain.Quizzes;
 
 namespace Quiz.Presentation.Quizzes;
 
@@ -34,7 +35,7 @@ internal static class CreateQuiz
 
         public string Description { get; set; }
 
-        public string Difficulty { get; set; }
+        public QuizDifficulty Difficulty { get; set; }
 
         public bool CreatedByAI { get; set; }
     }

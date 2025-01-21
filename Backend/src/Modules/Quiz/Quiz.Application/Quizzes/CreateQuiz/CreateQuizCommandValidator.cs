@@ -2,7 +2,7 @@
 
 namespace Quiz.Application.Quizzes.CreateQuiz;
 
-internal class CreateQuizCommandValidator : AbstractValidator<CreateQuizCommand>
+internal sealed class CreateQuizCommandValidator : AbstractValidator<CreateQuizCommand>
 {
     public CreateQuizCommandValidator()
     {

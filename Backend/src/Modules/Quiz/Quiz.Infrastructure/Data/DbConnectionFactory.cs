@@ -4,7 +4,7 @@ using Quiz.Application.Abstractions.Data;
 
 namespace Quiz.Infrastructure.Data;
 
-internal class DbConnectionFactory(NpgsqlDataSource dataSource) : IDbConnectionFactory
+internal sealed class DbConnectionFactory(NpgsqlDataSource dataSource) : IDbConnectionFactory
 {
     public async ValueTask<DbConnection> OpenConnectionAsync()
     {

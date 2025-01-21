@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Quiz.Infrastructure.Database;
 
 namespace QuizApp.API.Extensions;
 internal static class MigrationExtensions
