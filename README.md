@@ -1,7 +1,8 @@
 # Ongoing Project (not finished)
 
 ## ER Diagram
-![Untitled (7)](https://github.com/user-attachments/assets/7a6d696e-f9cc-494e-9aab-c291b7ebc82b)
+![Untitled (8)](https://github.com/user-attachments/assets/7f3c75f2-453d-45ad-b635-d6beb15df125)
+
 
 ## Bounded Contexts
-![quiz_platform_contexts_adjusted](https://github.com/user-attachments/assets/446c745e-7dc5-43cf-b910-f92798fdfa79)
+![contextdiagram](https://github.com/user-attachments/assets/642b74a1-05a1-4d0f-bb93-3e3dd6ea0f7d)
