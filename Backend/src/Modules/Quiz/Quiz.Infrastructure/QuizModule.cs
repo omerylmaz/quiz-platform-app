@@ -1,17 +1,17 @@
-﻿using FluentValidation;
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Npgsql;
+using Quiz.Application;
 using Quiz.Application.Abstractions.Data;
 using Quiz.Domain.Categories;
+using Quiz.Domain.Questions;
 using Quiz.Domain.QuizSets;
 using Quiz.Domain.Quizzes;
 using Quiz.Infrastructure.Categories;
 using Quiz.Infrastructure.Database;
+using Quiz.Infrastructure.Questions;
 using Quiz.Infrastructure.QuizSets;
 using Quiz.Infrastructure.Quizzes;
 using Quiz.Presentation.Categories;
@@ -29,17 +29,10 @@ public static class QuizModule
 
     public static IServiceCollection AddQuizModule(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddMediatR(config =>
-        {
-            config.RegisterServicesFromAssembly(Application.AssemblyReference.Assembly);
-        });
-
-        services.AddValidatorsFromAssembly(Application.AssemblyReference.Assembly, includeInternalTypes: true);
+        services.AddApplicationServices();
 
         string databaseConnectionString = configuration.GetConnectionString("Database");
 
-        //NpgsqlDataSource dataSource = new NpgsqlDataSourceBuilder(databaseConnectionString).Build();
-        //services.TryAddSingleton(dataSource);
 
         services.AddDbContext<QuizDbContext>(options =>
         {
@@ -54,7 +47,7 @@ public static class QuizModule
         services.AddScoped<IQuizRepository, QuizRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IQuizSetRepository, QuizSetRepository>();
-        //services.AddScoped<IQuizResultRepository, QuizResultRepository>()
+        services.AddScoped<IQuestionRepository, QuestionRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<QuizDbContext>());
 

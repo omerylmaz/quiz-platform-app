@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Quiz.Application.Categories.CreateCategory;
 using Quiz.Domain.Abstractions;
+using Quiz.Presentation.ApiResults;
 
 namespace Quiz.Presentation.Categories;
 
@@ -13,12 +14,9 @@ internal static class CreateCategory
     {
         app.MapPost("categories", async (Request request, ISender sender, CancellationToken cancellationToken) =>
         {
-            var command = new CreateCategoryCommand(
-                request.Name);
+            Result<Guid> result = await sender.Send(new CreateCategoryCommand(request.Name), cancellationToken);
 
-            Result<Guid> categoryId = await sender.Send(command, cancellationToken);
-
-            return Results.Ok(categoryId);
+            return result.Match(Results.Ok, ApiResults.ApiResults.Problem);
         })
         .WithTags(Constants.Tags.Categories);
     }
