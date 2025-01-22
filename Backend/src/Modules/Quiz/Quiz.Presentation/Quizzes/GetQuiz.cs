@@ -16,6 +16,6 @@ internal static class GetQuiz
 
             return quizResponse is null ? Results.NotFound() : Results.Ok(quizResponse);
         })
-        .WithTags(Constants.QuizzesTag);
+        .WithTags(Constants.Tags.Quizzes);
     }
 }

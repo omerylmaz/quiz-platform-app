@@ -2,6 +2,15 @@
 
 internal static class Constants
 {
-    internal const string QuizzesSchema = "quizzes";
-    internal const string QuizzesTag = "Quizzes";
+    public static class Schemas
+    {
+        public const string Quizzes = "quizzes";
+        public const string Categories = "categories";
+    }
+
+    public static class Tags
+    {
+        public const string Quizzes = "Quizzes";
+        public const string Categories = "Categories";
+    }
 }

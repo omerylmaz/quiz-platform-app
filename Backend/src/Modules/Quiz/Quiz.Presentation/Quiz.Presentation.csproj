@@ -8,7 +8,4 @@
 	<ItemGroup>
 	  <ProjectReference Include="..\Quiz.Application\Quiz.Application.csproj" />
 	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Categories\" />
-	</ItemGroup>
 </Project>

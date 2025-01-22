@@ -1,31 +1,23 @@
-﻿using System.Data.Common;
-using Dapper;
-using Quiz.Application.Abstractions.Data;
-using Quiz.Application.Categories.GetCategory;
+﻿using Quiz.Application.Categories.GetCategory;
 using Quiz.Application.Messaging;
 using Quiz.Domain.Abstractions;
+using Quiz.Domain.Categories;
 
 namespace Quiz.Application.Categories.GetCategories;
 
-internal sealed class GetCategoriesQueryHandler(IDbConnectionFactory dbConnectionFactory)
-    : IQueryHandler<GetCategoriesQuery, IReadOnlyCollection<CategoryResponse>>
+internal sealed class GetCategoriesQueryHandler(ICategoryRepository categoryRepository) : IQueryHandler<GetCategoriesQuery, IReadOnlyCollection<CategoryResponse>>
 {
     public async Task<Result<IReadOnlyCollection<CategoryResponse>>> Handle(
         GetCategoriesQuery request,
         CancellationToken cancellationToken)
     {
-        await using DbConnection connection = await dbConnectionFactory.OpenConnectionAsync();
+        IReadOnlyCollection<Category> categories = await categoryRepository.GetAllCategoriesAsync(cancellationToken);
 
-        const string sql =
-            $"""
-             SELECT
-                 id AS {nameof(CategoryResponse.Id)},
-                 name AS {nameof(CategoryResponse.Name)}
-             FROM quizzes.categories
-             """;
+        IReadOnlyCollection<CategoryResponse> response = categories
+            .Select(category => new CategoryResponse(category.Id, category.Name))
+            .ToList()
+            .AsReadOnly();
 
-        List<CategoryResponse> categories = (await connection.QueryAsync<CategoryResponse>(sql, request)).AsList();
-
-        return categories;
+        return Result.Success(response);
     }
 }

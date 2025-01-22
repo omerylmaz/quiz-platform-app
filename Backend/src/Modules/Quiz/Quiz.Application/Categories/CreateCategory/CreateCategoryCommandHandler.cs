@@ -4,6 +4,7 @@ using Quiz.Domain.Abstractions;
 using Quiz.Domain.Categories;
 
 namespace Quiz.Application.Categories.CreateCategory;
+
 internal sealed class CreateCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
     : ICommandHandler<CreateCategoryCommand, Guid>
 {

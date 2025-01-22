@@ -1,29 +1,31 @@
-﻿using System.Data.Common;
-using Dapper;
-using MediatR;
-using Quiz.Application.Abstractions.Data;
+﻿using MediatR;
+using Quiz.Domain.Quizzes;
 
 namespace Quiz.Application.Quizzes.GetQuiz;
 
-internal sealed class GetQuizQueryHandler(IDbConnectionFactory dbConnectionFactory)
-    : IRequestHandler<GetQuizQuery, QuizResponse?>
+internal sealed class GetQuizQueryHandler : IRequestHandler<GetQuizQuery, QuizResponse?>
 {
+    private readonly IQuizRepository _quizRepository;
+
+    public GetQuizQueryHandler(IQuizRepository quizRepository)
+    {
+        _quizRepository = quizRepository;
+    }
+
     public async Task<QuizResponse?> Handle(GetQuizQuery request, CancellationToken cancellationToken)
     {
-        await using DbConnection connection = await dbConnectionFactory.OpenConnectionAsync();
+        Domain.Quizzes.Quiz? quiz = await _quizRepository.GetAsync(request.QuizId, cancellationToken);
 
-        const string sql =
-            $"""
-            Select
-            id as {nameof(QuizResponse.Id)}
-            quiz_set_id as {nameof(QuizResponse.QuizSetId)}
-            title as {nameof(QuizResponse.Title)}
-            description as {nameof(QuizResponse.Description)}
-            created_by_ai as {nameof(QuizResponse.CreatedByAI)}
-            difficulty as {nameof(QuizResponse.Difficulty)}
-            """;
+        if (quiz is null)
+            return null;
 
-        QuizResponse? quiz = await connection.QuerySingleOrDefaultAsync(sql, request);
-        return quiz;
+        return new QuizResponse(
+            quiz.Id,
+            quiz.QuizSetId,
+            quiz.Title ?? string.Empty,
+            quiz.Description ?? string.Empty,
+            quiz.CreatedByAI,
+            quiz.Difficulty
+        );
     }
 }

@@ -10,6 +10,12 @@ internal sealed class CategoryRepository(QuizDbContext dbContext) : ICategoryRep
         dbContext.Categories.Add(category);
     }
 
+    public async Task<IReadOnlyCollection<Category>> GetAllCategoriesAsync(CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Categories
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<Category?> GetAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await dbContext.Categories.FirstOrDefaultAsync(e => e.Id == id, cancellationToken);

@@ -24,7 +24,7 @@ internal static class CreateQuiz
 
             return Results.Ok(quizId);
         })
-        .WithTags(Constants.QuizzesTag);
+        .WithTags(Constants.Tags.Quizzes);
     }
 
     internal sealed class Request
