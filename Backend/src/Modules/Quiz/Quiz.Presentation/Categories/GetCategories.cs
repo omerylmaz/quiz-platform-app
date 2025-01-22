@@ -2,19 +2,20 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Quiz.Application.Categories.GetCategories;
 using Quiz.Application.Categories.GetCategory;
 using Quiz.Domain.Abstractions;
 using Quiz.Presentation.ApiResults;
 
 namespace Quiz.Presentation.Categories;
 
-internal static class GetCategory
+public static class GetCategories
 {
     public static void MapEndpoint(IEndpointRouteBuilder app)
     {
-        app.MapGet("categories/{id}", async (Guid id, ISender sender, CancellationToken cancellationToken) =>
+        app.MapGet("categories", async (ISender sender, CancellationToken cancellationToken) =>
         {
-            Result<CategoryResponse>? result = await sender.Send(new GetCategoryQuery(id), cancellationToken);
+            Result<IReadOnlyCollection<CategoryResponse>>? result = await sender.Send(new GetCategoriesQuery(), cancellationToken);
 
             return result.Match(Results.Ok, ApiResults.ApiResults.Problem);
         })

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Quiz.Application.Categories.UpdateCategory;
 using Quiz.Domain.Abstractions;
+using Quiz.Presentation.ApiResults;
 
 namespace Quiz.Presentation.Categories;
 
@@ -17,7 +18,7 @@ internal static class UpdateCategory
 
             Result result = await sender.Send(command, cancellationToken);
 
-            return result.IsSuccess ? Results.NoContent() : Results.NotFound();
+            return result.Match(() => Results.Ok(), ApiResults.ApiResults.Problem);
         })
         .WithTags(Constants.Tags.Categories);
     }
