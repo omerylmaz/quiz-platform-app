@@ -5,5 +5,4 @@
 
 
 ## Bounded Contexts
-![contextdiagram](https://github.com/user-attachments/assets/cb6096a5-2f28-46b5-8212-cbb37d05e19f)
-
+![contextdiagram](https://github.com/user-attachments/assets/642b74a1-05a1-4d0f-bb93-3e3dd6ea0f7d)
