@@ -17,6 +17,6 @@ internal sealed class GetCategoryQueryHandler(ICategoryRepository categoryReposi
 
         var response = new CategoryResponse(category.Id, category.Name);
 
-        return Result.Success(response);
+        return response;
     }
 }

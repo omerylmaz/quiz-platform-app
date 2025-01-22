@@ -13,11 +13,10 @@ internal sealed class GetCategoriesQueryHandler(ICategoryRepository categoryRepo
     {
         IReadOnlyCollection<Category> categories = await categoryRepository.GetAllCategoriesAsync(cancellationToken);
 
-        IReadOnlyCollection<CategoryResponse> response = categories
+        List<CategoryResponse> response = categories
             .Select(category => new CategoryResponse(category.Id, category.Name))
-            .ToList()
-            .AsReadOnly();
+            .ToList();
 
-        return Result.Success(response);
+        return response;
     }
 }
