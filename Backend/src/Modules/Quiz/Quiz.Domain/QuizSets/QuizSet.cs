@@ -27,7 +27,7 @@ public sealed class QuizSet : Entity
             Title = title,
             Description = description,
             UserId = userId,
-            CreatedAt = DateTime.Now,
+            CreatedAt = DateTime.UtcNow,
             Categories = categories
         };
 

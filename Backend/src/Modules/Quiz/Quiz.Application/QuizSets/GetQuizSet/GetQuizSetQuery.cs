@@ -2,4 +2,4 @@
 
 namespace Quiz.Application.QuizSets.GetQuizSet;
 
-public sealed record GetQuizSetQuery(Guid UserId) : IQuery<QuizSetResponse>;
+public sealed record GetQuizSetQuery(Guid Id) : IQuery<QuizSetResponse>;

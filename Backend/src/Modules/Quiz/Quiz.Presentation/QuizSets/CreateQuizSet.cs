@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -25,7 +20,7 @@ internal static class CreateQuizSet
 
             return result.Match(Results.Ok, ApiResults.ApiResults.Problem);
         })
-        .WithTags(Constants.Tags.Categories);
+        .WithTags(Constants.Tags.QuizSets);
     }
     //TODDO: userid leri daha sonra authorization ile çek
     internal sealed record Request(string Title, string Description, Guid UserId, List<Guid> Categories);

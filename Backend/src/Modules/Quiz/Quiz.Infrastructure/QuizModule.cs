@@ -15,6 +15,7 @@ using Quiz.Infrastructure.Questions;
 using Quiz.Infrastructure.QuizSets;
 using Quiz.Infrastructure.Quizzes;
 using Quiz.Presentation.Categories;
+using Quiz.Presentation.QuizSets;
 using Quiz.Presentation.Quizzes;
 
 namespace Quiz.Infrastructure;
@@ -25,6 +26,7 @@ public static class QuizModule
     {
         QuizEndpoints.MapEndpoints(app);
         CategoryEndpoints.MapEndpoints(app);
+        QuizSetEndpoints.MapEndpoints(app);
     }
 
     public static IServiceCollection AddQuizModule(this IServiceCollection services, IConfiguration configuration)

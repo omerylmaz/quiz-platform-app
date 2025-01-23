@@ -2,7 +2,7 @@
 
 namespace Quiz.Application.QuizSets.CreateQuizSet;
 
-internal class CreateQuizSetCommandValidator : AbstractValidator<CreateQuizSetCommand>
+internal sealed class CreateQuizSetCommandValidator : AbstractValidator<CreateQuizSetCommand>
 {
     public CreateQuizSetCommandValidator()
     {

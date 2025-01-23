@@ -38,7 +38,7 @@ public sealed class Quiz : Entity
             QuizSetId = quizSetId,
             Difficulty = quizDifficulty,
             CreatedByAI = createdByAI,
-            CreatedAt = DateTime.Now
+            CreatedAt = DateTime.UtcNow
         };
 
         quiz.Raise(new QuizCreatedDomainEvent(quiz.Id));

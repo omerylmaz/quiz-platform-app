@@ -5,7 +5,7 @@ public abstract class DomainEvent : IDomainEvent
     protected DomainEvent()
     {
         Id = Guid.NewGuid();
-        OccuredOn = DateTime.Now;
+        OccuredOn = DateTime.UtcNow;
     }
 
     protected DomainEvent(Guid id, DateTime occuredOn)

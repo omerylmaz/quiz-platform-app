@@ -11,10 +11,19 @@ internal sealed class QuizSetRepository(QuizDbContext dbContext) : IQuizSetRepos
         dbContext.QuizSets.Add(quizSet);
     }
 
-    public async Task<QuizSet> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<QuizSet>> GetAllByUserIdAsync(Guid userId, CancellationToken cancellationToken)
     {
         return await dbContext.QuizSets
+            .Where(q => q.UserId == userId)
             .Include(q => q.Categories)
-            .FirstOrDefaultAsync(q => q.UserId == userId, cancellationToken);
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<QuizSet> GetAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return await dbContext.QuizSets
+            .Where(q => q.Id == id)
+            .Include(q => q.Categories)
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }

@@ -3,5 +3,6 @@
 public interface IQuizSetRepository
 {
     void Add(QuizSet quizSet);
-    Task<QuizSet> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken);
+    Task<QuizSet> GetAsync(Guid id, CancellationToken cancellationToken);
+    Task<IReadOnlyCollection<QuizSet>> GetAllByUserIdAsync(Guid userId, CancellationToken cancellationToken);
 }
