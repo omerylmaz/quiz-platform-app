@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using Quiz.Domain.Questions;
 using Quiz.Infrastructure.Database;
 
@@ -18,6 +19,21 @@ public class QuestionRepository(QuizDbContext dbContext) : IQuestionRepository
             return;
 
         dbContext.Questions.Remove(question);
+    }
+
+    public async Task<IReadOnlyCollection<Question>> GetAllByIdsAsync(List<Guid> QuestionIds, CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Questions
+            .Where(q => QuestionIds.Contains(q.Id))
+            .Include(q => q.Choices)
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<IReadOnlyCollection<Question>> GetAllWhereAsync(Expression<Func<Question, bool>> predicate, CancellationToken cancellationToken = default)
+    {
+        return await dbContext.Questions
+            .Where(predicate)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<Question?> GetQuestionByIdAsync(Guid questionId, CancellationToken cancellationToken = default)

@@ -7,5 +7,6 @@ public static class QuizEndpoints
     {
         CreateQuiz.MapEndpoint(app);
         GetQuiz.MapEndpoint(app);
+        SolveQuiz.MapEndpoint(app);
     }
 }
