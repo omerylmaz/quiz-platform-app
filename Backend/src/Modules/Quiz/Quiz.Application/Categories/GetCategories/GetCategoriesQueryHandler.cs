@@ -1,6 +1,6 @@
-﻿using Quiz.Application.Categories.GetCategory;
-using Quiz.Application.Messaging;
-using Quiz.Domain.Abstractions;
+﻿using Common.Application.Messaging;
+using Common.Domain;
+using Quiz.Application.Categories.GetCategory;
 using Quiz.Domain.Categories;
 
 namespace Quiz.Application.Categories.GetCategories;

@@ -1,7 +1,7 @@
-﻿using MediatR;
-using Quiz.Domain.Abstractions;
+﻿using Common.Domain;
+using MediatR;
 
-namespace Quiz.Application.Messaging;
+namespace Common.Application.Messaging;
 
 public interface IQueryHandler<in TQuery, TResponse> : IRequestHandler<TQuery, Result<TResponse>>
     where TQuery : IQuery<TResponse>;

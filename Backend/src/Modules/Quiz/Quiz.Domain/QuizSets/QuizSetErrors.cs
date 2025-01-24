@@ -1,4 +1,4 @@
-﻿using Quiz.Domain.Abstractions;
+﻿using Common.Domain;
 
 namespace Quiz.Domain.QuizSets;
 

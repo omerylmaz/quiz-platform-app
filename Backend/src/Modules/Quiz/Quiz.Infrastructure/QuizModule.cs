@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Routing;
+﻿using Common.Application.Data;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Quiz.Application;
-using Quiz.Application.Abstractions.Data;
 using Quiz.Domain.Categories;
 using Quiz.Domain.Questions;
 using Quiz.Domain.QuizSets;
@@ -31,8 +30,6 @@ public static class QuizModule
 
     public static IServiceCollection AddQuizModule(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddApplicationServices();
-
         string databaseConnectionString = configuration.GetConnectionString("Database");
 
 

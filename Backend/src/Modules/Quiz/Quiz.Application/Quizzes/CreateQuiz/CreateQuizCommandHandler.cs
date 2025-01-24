@@ -1,5 +1,5 @@
-﻿using MediatR;
-using Quiz.Application.Abstractions.Data;
+﻿using Common.Application.Data;
+using MediatR;
 using Quiz.Domain.Quizzes;
 
 namespace Quiz.Application.Quizzes.CreateQuiz;

@@ -1,9 +1,9 @@
-﻿using MediatR;
+﻿using Common.Domain;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Quiz.Application.Quizzes.CreateQuiz;
-using Quiz.Domain.Abstractions;
 using Quiz.Domain.Quizzes;
 using Quiz.Presentation.ApiResults;
 

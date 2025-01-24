@@ -1,5 +1,5 @@
-﻿using Quiz.Application.Messaging;
-using Quiz.Domain.Abstractions;
+﻿using Common.Application.Messaging;
+using Common.Domain;
 using Quiz.Domain.QuizSets;
 
 namespace Quiz.Application.QuizSets.GetQuizSet;

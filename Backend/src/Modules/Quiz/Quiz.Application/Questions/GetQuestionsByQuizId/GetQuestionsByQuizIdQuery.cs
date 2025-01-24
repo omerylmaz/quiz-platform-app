@@ -1,4 +1,4 @@
-﻿using Quiz.Application.Messaging;
+﻿using Common.Application.Messaging;
 using Quiz.Application.Questions.GetQuestionByQuizId;
 
 namespace Quiz.Application.Questions.GetQuestionsByQuizId;

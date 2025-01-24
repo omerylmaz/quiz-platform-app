@@ -1,6 +1,6 @@
-﻿using Quiz.Domain.Abstractions;
+﻿using Common.Domain;
 
-namespace Quiz.Application.Exceptions;
+namespace Common.Application.Exceptions;
 
 public sealed class QuizAppException : Exception
 {

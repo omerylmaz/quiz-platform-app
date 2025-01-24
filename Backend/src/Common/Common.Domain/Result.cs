@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Quiz.Domain.Abstractions;
+namespace Common.Domain;
 
 public class Result
 {

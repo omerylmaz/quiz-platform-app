@@ -1,7 +1,7 @@
-﻿using MediatR;
-using Quiz.Domain.Abstractions;
+﻿using Common.Domain;
+using MediatR;
 
-namespace Quiz.Application.Messaging;
+namespace Common.Application.Messaging;
 
 public interface ICommandHandler<in TCommand> : IRequestHandler<TCommand, Result>
     where TCommand : ICommand;

@@ -1,4 +1,4 @@
-﻿using Quiz.Application.Messaging;
+﻿using Common.Application.Messaging;
 using Quiz.Application.QuizSets.GetQuizSet;
 
 namespace Quiz.Application.QuizSets.GetQuizSetsByUserId;

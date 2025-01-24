@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Quiz.Domain.Abstractions;
+﻿using Common.Domain;
+using Microsoft.AspNetCore.Http;
 
 namespace Quiz.Presentation.ApiResults;
 

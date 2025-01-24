@@ -1,6 +1,6 @@
-﻿using Quiz.Application.Messaging;
+﻿using Common.Application.Messaging;
+using Common.Domain;
 using Quiz.Application.Questions.GetQuestionByQuizId;
-using Quiz.Domain.Abstractions;
 using Quiz.Domain.Questions;
 
 namespace Quiz.Application.Questions.GetQuestionsByQuizId;

@@ -1,10 +1,10 @@
-﻿using MediatR;
+﻿using Common.Domain;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Quiz.Application.QuizSets.GetQuizSet;
 using Quiz.Application.QuizSets.GetQuizSetsByUserId;
-using Quiz.Domain.Abstractions;
 using Quiz.Presentation.ApiResults;
 
 namespace Quiz.Presentation.QuizSets;

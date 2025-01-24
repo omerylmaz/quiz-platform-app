@@ -1,4 +1,4 @@
-﻿namespace Quiz.Domain.Abstractions;
+﻿namespace Common.Domain;
 
 public sealed record ValidationError : Error
 {

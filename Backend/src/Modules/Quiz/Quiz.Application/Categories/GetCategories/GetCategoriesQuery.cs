@@ -1,5 +1,5 @@
-﻿using Quiz.Application.Categories.GetCategory;
-using Quiz.Application.Messaging;
+﻿using Common.Application.Messaging;
+using Quiz.Application.Categories.GetCategory;
 
 namespace Quiz.Application.Categories.GetCategories;
 

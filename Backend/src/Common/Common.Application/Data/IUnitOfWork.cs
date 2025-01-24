@@ -1,4 +1,4 @@
-﻿namespace Quiz.Application.Abstractions.Data;
+﻿namespace Common.Application.Data;
 
 public interface IUnitOfWork
 {
