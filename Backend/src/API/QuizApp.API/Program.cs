@@ -12,6 +12,8 @@ builder.Services.AddApplication([Quiz.Application.AssemblyReference.Assembly]);
 
 builder.Services.AddInfrastructure();
 
+builder.Configuration.AddModuleConfiguration(["quizzes"]);
+
 builder.Services.AddQuizModule(builder.Configuration);
 
 WebApplication app = builder.Build();
