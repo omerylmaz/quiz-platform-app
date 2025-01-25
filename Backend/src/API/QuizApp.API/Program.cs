@@ -2,12 +2,17 @@ using Common.Application;
 using Common.Infrastructure;
 using Quiz.Infrastructure;
 using QuizApp.API.Extensions;
+using QuizApp.API.Middlewares;
 using Scalar.AspNetCore;
 using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configuration(context.Configuration));
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+
+builder.Services.AddProblemDetails();
 
 builder.Services.AddOpenApi();
 
@@ -32,5 +37,7 @@ app.MapScalarApiReference();
 app.MapOpenApi();
 
 app.UseSerilogRequestLogging();
+
+app.UseExceptionHandler();
 
 app.Run();
