@@ -1,7 +1,7 @@
 services:
   quizapp.api:
     image: ${DOCKER_REGISTRY-}quizappapi
-    container_name: Quiz.Api
+    container_name: QuizApp.Api
     build:
       context: .
       dockerfile: API/QuizApp.API/Dockerfile
@@ -9,9 +9,9 @@ services:
       - 5000:8080
       - 5001:8081
 
-  quiz.database:
+  quizapp.database:
     image: postgres:latest
-    container_name: Quiz.Database
+    container_name: QuizApp.Database
     environment:
       - POSTGRES_DB=quiz
       - POSTGRES_USER=postgres
@@ -20,3 +20,12 @@ services:
       - ./.containers/db:/var/lib/postgresql/data
     ports:
       - 5432:5432
+
+  quizapp.seq:
+    image: datalust/seq:latest
+    container_name: QuizApp.Seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - 5341:5341
+      - 8081:80

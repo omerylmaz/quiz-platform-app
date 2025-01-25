@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Common.Application.Behaviors;
 
 namespace Common.Application;
 
@@ -13,6 +14,8 @@ public static class ApplicationConfiguration
         services.AddMediatR(config =>
         {
             config.RegisterServicesFromAssemblies(moduleAssemblies);
+
+            config.AddOpenBehavior(typeof(RequestLoggingPipelineBehavior<,>));
         });
 
         services.AddValidatorsFromAssemblies(moduleAssemblies, includeInternalTypes: true);
