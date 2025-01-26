@@ -1,5 +1,7 @@
 using Common.Application;
 using Common.Infrastructure;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Quiz.Infrastructure;
 using QuizApp.API.Extensions;
 using QuizApp.API.Middlewares;
@@ -18,9 +20,16 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddApplication([Quiz.Application.AssemblyReference.Assembly]);
 
-builder.Services.AddInfrastructure(builder.Configuration.GetConnectionString("Cache")!);
+string cacheConnectionString = builder.Configuration.GetConnectionString("Cache")!;
+string databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;
+
+builder.Services.AddInfrastructure(cacheConnectionString);
 
 builder.Configuration.AddModuleConfiguration(["quizzes"]);
+
+builder.Services.AddHealthChecks()
+    .AddNpgSql(databaseConnectionString)
+    .AddRedis(cacheConnectionString);
 
 builder.Services.AddQuizModule(builder.Configuration);
 
@@ -32,6 +41,11 @@ if (app.Environment.IsDevelopment())
 }
 
 QuizModule.MapEndpoints(app);
+
+app.MapHealthChecks("health", new HealthCheckOptions()
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.MapScalarApiReference();
 app.MapOpenApi();
