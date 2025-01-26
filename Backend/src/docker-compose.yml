@@ -29,3 +29,10 @@ services:
     ports:
       - 5341:5341
       - 8081:80
+
+  quizapp.redis:
+    image: redis:latest
+    container_name: QuizApp.Redis
+    restart: always
+    ports:
+      - 6379:6379

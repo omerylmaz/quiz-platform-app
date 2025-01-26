@@ -18,7 +18,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddApplication([Quiz.Application.AssemblyReference.Assembly]);
 
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration.GetConnectionString("Cache")!);
 
 builder.Configuration.AddModuleConfiguration(["quizzes"]);
 
