@@ -1,4 +1,5 @@
 ﻿using Common.Application.Data;
+using Common.Infrastructure.Interceptors;
 using Common.Presentation.Endpoints;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -24,14 +25,14 @@ public static class QuizModule
 
         string databaseConnectionString = configuration.GetConnectionString("Database");
 
-        services.AddDbContext<QuizDbContext>(options =>
+        services.AddDbContext<QuizDbContext>((sp, options) =>
         {
             options.UseNpgsql(
                 databaseConnectionString,
                 npgSqlOptions => npgSqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Constants.QuizzesSchema)
                 )
             .UseSnakeCaseNamingConvention()
-            .AddInterceptors();
+            .AddInterceptors(sp.GetRequiredService<PublishDomainEventsInterceptor>());
         });
 
         services.AddScoped<IQuizRepository, QuizRepository>();

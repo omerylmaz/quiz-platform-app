@@ -1,6 +1,8 @@
-﻿namespace Common.Domain;
+﻿using MediatR;
 
-public interface IDomainEvent
+namespace Common.Domain;
+
+public interface IDomainEvent : INotification
 {
     Guid Id { get; }
 
