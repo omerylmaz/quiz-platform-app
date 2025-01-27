@@ -1,16 +1,17 @@
 ﻿using Common.Domain;
+using Common.Presentation.ApiResults;
+using Common.Presentation.Endpoints;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Quiz.Application.Quizzes.SolveQuiz;
-using Quiz.Presentation.ApiResults;
 
 namespace Quiz.Presentation.Quizzes;
 
-internal static class SolveQuiz
+internal sealed class SolveQuiz : IEndpoint
 {
-    public static void MapEndpoint(IEndpointRouteBuilder app)
+    public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("quizzes/{quizId}/solve", async (Guid quizId, Request request, ISender sender, CancellationToken cancellationToken) =>
         {
@@ -21,7 +22,7 @@ internal static class SolveQuiz
 
             Result<SolveQuizResponse> result = await sender.Send(command, cancellationToken);
 
-            return result.Match(Results.Ok, ApiResults.ApiResults.Problem);
+            return result.Match(Results.Ok, ApiResults.Problem);
         })
         .WithTags(Constants.Tags.Quizzes);
     }

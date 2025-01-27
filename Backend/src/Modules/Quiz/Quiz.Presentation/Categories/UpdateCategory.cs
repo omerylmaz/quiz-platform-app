@@ -1,16 +1,17 @@
 ﻿using Common.Domain;
+using Common.Presentation.ApiResults;
+using Common.Presentation.Endpoints;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Quiz.Application.Categories.UpdateCategory;
-using Quiz.Presentation.ApiResults;
 
 namespace Quiz.Presentation.Categories;
 
-internal static class UpdateCategory
+internal sealed class UpdateCategory : IEndpoint
 {
-    public static void MapEndpoint(IEndpointRouteBuilder app)
+    public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPut("categories/{id}", async (Guid id, Request request, ISender sender, CancellationToken cancellationToken) =>
         {
@@ -18,7 +19,7 @@ internal static class UpdateCategory
 
             Result result = await sender.Send(command, cancellationToken);
 
-            return result.Match(() => Results.Ok(), ApiResults.ApiResults.Problem);
+            return result.Match(() => Results.Ok(), ApiResults.Problem);
         })
         .WithTags(Constants.Tags.Categories);
     }

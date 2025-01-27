@@ -1,5 +1,5 @@
 ﻿using Common.Application.Data;
-using Microsoft.AspNetCore.Routing;
+using Common.Presentation.Endpoints;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
@@ -13,25 +13,16 @@ using Quiz.Infrastructure.Database;
 using Quiz.Infrastructure.Questions;
 using Quiz.Infrastructure.QuizSets;
 using Quiz.Infrastructure.Quizzes;
-using Quiz.Presentation.Categories;
-using Quiz.Presentation.QuizSets;
-using Quiz.Presentation.Quizzes;
 
 namespace Quiz.Infrastructure;
 
 public static class QuizModule
 {
-    public static void MapEndpoints(IEndpointRouteBuilder app)
-    {
-        QuizEndpoints.MapEndpoints(app);
-        CategoryEndpoints.MapEndpoints(app);
-        QuizSetEndpoints.MapEndpoints(app);
-    }
-
     public static IServiceCollection AddQuizModule(this IServiceCollection services, IConfiguration configuration)
     {
-        string databaseConnectionString = configuration.GetConnectionString("Database");
+        services.AddEndpoints(Presentation.AssemblyReference.Assembly);
 
+        string databaseConnectionString = configuration.GetConnectionString("Database");
 
         services.AddDbContext<QuizDbContext>(options =>
         {

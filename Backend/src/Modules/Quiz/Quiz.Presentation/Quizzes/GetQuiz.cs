@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Common.Presentation.Endpoints;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -6,9 +7,9 @@ using Quiz.Application.Quizzes.GetQuiz;
 
 namespace Quiz.Presentation.Quizzes;
 
-internal static class GetQuiz
+internal sealed class GetQuiz : IEndpoint
 {
-    public static void MapEndpoint(IEndpointRouteBuilder app)
+    public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapGet("quizzes/{id}", async (Guid id, ISender sender, CancellationToken cancellationToken) =>
         {

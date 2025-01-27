@@ -1,17 +1,18 @@
 ﻿using Common.Domain;
+using Common.Presentation.ApiResults;
+using Common.Presentation.Endpoints;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Quiz.Application.Quizzes.CreateQuiz;
 using Quiz.Domain.Quizzes;
-using Quiz.Presentation.ApiResults;
 
 namespace Quiz.Presentation.Quizzes;
 
-internal static class CreateQuiz
+internal sealed class CreateQuiz : IEndpoint
 {
-    public static void MapEndpoint(IEndpointRouteBuilder app)
+    public void MapEndpoint(IEndpointRouteBuilder app)
     {
         app.MapPost("quizzes", async (Request request, ISender sender, CancellationToken cancellationToken) =>
         {
@@ -24,7 +25,7 @@ internal static class CreateQuiz
 
             Result<Guid> result = await sender.Send(command, cancellationToken);
 
-            return result.Match(Results.Ok, ApiResults.ApiResults.Problem);
+            return result.Match(Results.Ok, ApiResults.Problem);
         })
         .WithTags(Constants.Tags.Quizzes);
     }

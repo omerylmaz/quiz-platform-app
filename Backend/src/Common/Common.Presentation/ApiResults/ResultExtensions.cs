@@ -1,6 +1,6 @@
 ﻿using Common.Domain;
 
-namespace Quiz.Presentation.ApiResults;
+namespace Common.Presentation.ApiResults;
 
 public static class ResultExtensions
 {

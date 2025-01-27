@@ -1,5 +1,6 @@
 using Common.Application;
 using Common.Infrastructure;
+using Common.Presentation.Endpoints;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Quiz.Infrastructure;
@@ -40,7 +41,7 @@ if (app.Environment.IsDevelopment())
     app.ApplyMigrations();
 }
 
-QuizModule.MapEndpoints(app);
+app.MapEndpoints();
 
 app.MapHealthChecks("health", new HealthCheckOptions()
 {
