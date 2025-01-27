@@ -8,6 +8,7 @@ using QuizApp.API.Extensions;
 using QuizApp.API.Middlewares;
 using Scalar.AspNetCore;
 using Serilog;
+using Users.Infrastructure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -19,20 +20,23 @@ builder.Services.AddProblemDetails();
 
 builder.Services.AddOpenApi();
 
-builder.Services.AddApplication([Quiz.Application.AssemblyReference.Assembly]);
+builder.Services.AddApplication([
+    Quiz.Application.AssemblyReference.Assembly,
+    Users.Application.AssemblyReference.Assembly]);
 
 string cacheConnectionString = builder.Configuration.GetConnectionString("Cache")!;
 string databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;
 
 builder.Services.AddInfrastructure(cacheConnectionString);
 
-builder.Configuration.AddModuleConfiguration(["quizzes"]);
+builder.Configuration.AddModuleConfiguration(["quizzes", "users"]);
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(databaseConnectionString)
     .AddRedis(cacheConnectionString);
 
 builder.Services.AddQuizModule(builder.Configuration);
+builder.Services.AddUsersModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 

@@ -22,6 +22,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Modules\Quiz\Quiz.Infrastructure\Quiz.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\Modules\Users\Users.Infrastructure\Users.Infrastructure.csproj" />
     </ItemGroup>
 
     <ItemGroup>
