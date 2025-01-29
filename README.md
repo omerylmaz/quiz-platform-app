@@ -39,7 +39,7 @@ The **Quiz Platform App** is a **modular monolith** web application built using 
 
 ## 🏛️ Database Schema
 The application follows **Domain-Driven Design (DDD)** principles, dividing functionalities into multiple **contexts**:
-- ** User Management Context**
+- **User Management Context**
 - **Subscription Management Context**
 - **Quiz Management Context**
 - **Notification Context**
