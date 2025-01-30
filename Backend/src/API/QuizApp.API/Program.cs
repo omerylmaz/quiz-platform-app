@@ -8,6 +8,7 @@ using QuizApp.API.Extensions;
 using QuizApp.API.Middlewares;
 using Scalar.AspNetCore;
 using Serilog;
+using Subscriptions.Infrustructure;
 using Users.Infrastructure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -22,14 +23,15 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddApplication([
     Quiz.Application.AssemblyReference.Assembly,
-    Users.Application.AssemblyReference.Assembly]);
+    Users.Application.AssemblyReference.Assembly,
+    Subscriptions.Application.AssemblyReference.Assembly]);
 
 string cacheConnectionString = builder.Configuration.GetConnectionString("Cache")!;
 string databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;
 
 builder.Services.AddInfrastructure(cacheConnectionString);
 
-builder.Configuration.AddModuleConfiguration(["quizzes", "users"]);
+builder.Configuration.AddModuleConfiguration(["quizzes", "users", "subscriptions"]);
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(databaseConnectionString)
@@ -37,6 +39,7 @@ builder.Services.AddHealthChecks()
 
 builder.Services.AddQuizModule(builder.Configuration);
 builder.Services.AddUsersModule(builder.Configuration);
+builder.Services.AddSubscriptionsModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 
@@ -52,8 +55,8 @@ app.MapHealthChecks("health", new HealthCheckOptions()
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 
-app.MapScalarApiReference();
 app.MapOpenApi();
+app.MapScalarApiReference();
 
 app.UseSerilogRequestLogging();
 

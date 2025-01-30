@@ -1,0 +1,143 @@
+@startuml
+package "User Management Context" {
+  entity Users {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    Name : VARCHAR(255)
+    Email : VARCHAR(255) [unique]
+    PasswordHash : VARCHAR(255)
+    RoleId : UNIQUEIDENTIFIER [ref: > Roles.Id]
+  }
+
+  entity Roles {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    Name : VARCHAR(255) [unique]
+  }
+
+  entity Achievements {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    Name : VARCHAR(255)
+    Criteria : TEXT
+  }
+
+  entity UserAchievements {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    UserId : UNIQUEIDENTIFIER [ref: > Users.Id]
+    AchievementId : UNIQUEIDENTIFIER [ref: > Achievements.Id]
+    AwardedAt : DATETIME
+  }
+}
+
+package "Subscription Management Context" {
+  entity Subscriptions {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    SubscriptionName : VARCHAR(255)
+    Price : DECIMAL(10, 2)
+  }
+
+  entity SubscriptionBenefits {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    SubscriptionId : UNIQUEIDENTIFIER [ref: > Subscriptions.Id]
+    BenefitName : VARCHAR(255)
+    BenefitValue : VARCHAR(255)
+  }
+
+  entity Payments {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    UserId : UNIQUEIDENTIFIER [ref: > Users.Id]
+    SubscriptionId : UNIQUEIDENTIFIER [ref: > Subscriptions.Id]
+    Amount : DECIMAL(10, 2)
+    PaymentDate : DATETIME
+    PaymentStatus : VARCHAR(50)
+    TransactionId : VARCHAR(255)
+  }
+
+  entity UserSubscriptions {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    UserId : UNIQUEIDENTIFIER [ref: > Users.Id]
+    SubscriptionId : UNIQUEIDENTIFIER [ref: > Subscriptions.Id]
+    StartDate : DATETIME
+    EndDate : DATETIME
+    IsActive : BOOLEAN
+  }
+}
+
+package "Quiz Management Context" {
+  entity QuizSets {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    Title : VARCHAR(255)
+    Description : TEXT
+    UserId : UNIQUEIDENTIFIER [ref: > Users.Id]
+    CreatedAt : DATETIME [default: `now()`]
+  }
+
+  entity Quizzes {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    QuizSetId : UNIQUEIDENTIFIER [ref: > QuizSets.Id]
+    Title : VARCHAR(255)
+    Description : TEXT
+    CreatedByAI : BOOLEAN
+    Difficulty : VARCHAR(50)
+    CreatedAt : DATETIME [default: `now()`]
+  }
+
+  entity Questions {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    QuizId : UNIQUEIDENTIFIER [ref: > Quizzes.Id]
+    Text : TEXT
+  }
+
+  entity Choices {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    QuestionId : UNIQUEIDENTIFIER [ref: > Questions.Id]
+    Text : VARCHAR(255)
+    IsCorrect : BOOLEAN
+  }
+
+  entity Results {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    UserId : UNIQUEIDENTIFIER [ref: > Users.Id]
+    QuizSetId : UNIQUEIDENTIFIER [ref: > QuizSets.Id]
+    Score : INT
+    CompletionDate : DATETIME
+  }
+
+  entity Categories {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    Name : VARCHAR(255)
+  }
+
+  entity QuizSetCategories {
+    * QuizSetId : UNIQUEIDENTIFIER [ref: > QuizSets.Id]
+    * CategoryId : UNIQUEIDENTIFIER [ref: > Categories.Id]
+    --
+    PRIMARY KEY (QuizSetId, CategoryId)
+  }
+}
+
+package "Notification Context" {
+  entity Notifications {
+    * Id : UNIQUEIDENTIFIER [pk]
+    --
+    UserId : UNIQUEIDENTIFIER [ref: > Users.Id]
+    Title : VARCHAR(255)
+    Message : TEXT
+    NotificationType : VARCHAR(50)
+    IsRead : BOOLEAN
+    CreatedAt : DATETIME
+  }
+}
+@enduml

@@ -5,7 +5,7 @@ using Quiz.Infrastructure.Database;
 
 namespace Quiz.Infrastructure.Questions;
 
-public class QuestionRepository(QuizDbContext dbContext) : IQuestionRepository
+internal sealed class QuestionRepository(QuizDbContext dbContext) : IQuestionRepository
 {
     public void Add(Question question)
     {

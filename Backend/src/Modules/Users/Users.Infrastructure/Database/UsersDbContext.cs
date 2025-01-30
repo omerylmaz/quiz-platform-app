@@ -1,4 +1,5 @@
-﻿using Common.Application.Data;
+﻿using System.Reflection;
+using Common.Application.Data;
 using Microsoft.EntityFrameworkCore;
 using Users.Domain.Users;
 
@@ -10,6 +11,8 @@ public sealed class UsersDbContext(DbContextOptions<UsersDbContext> options) : D
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
         modelBuilder.HasDefaultSchema(Schemas.Users);
     }
 }

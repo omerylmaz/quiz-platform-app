@@ -7,6 +7,7 @@ using Quiz.Domain.QuizResults;
 using Quiz.Domain.QuizSets;
 
 namespace Quiz.Infrastructure.Database;
+
 public sealed class QuizDbContext(DbContextOptions<QuizDbContext> options) : DbContext(options), IUnitOfWork
 {
     internal DbSet<Domain.Quizzes.Quiz> Quizzes { get; set; }
