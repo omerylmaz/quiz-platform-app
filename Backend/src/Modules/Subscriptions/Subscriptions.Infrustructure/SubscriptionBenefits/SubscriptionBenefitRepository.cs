@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using Subscriptions.Domain.SubscriptionBenefits;
 using Subscriptions.Infrustructure.Database;
 
@@ -20,7 +21,15 @@ internal sealed class SubscriptionBenefitRepository(SubscriptionsDbContext dbCon
     {
         return await dbContext.SubscriptionBenefits
             .AsNoTracking()
-            .Where(sb => sb.SubscriptionId == subscriptionId)
+            .Where(sb => sb.Subscriptions.Any(s => s.Id == subscriptionId))
+            .ToListAsync(cancellationToken);
+    }
+
+    public async Task<IReadOnlyCollection<SubscriptionBenefit>> GetAllWhereAsync(Expression<Func<SubscriptionBenefit, bool>> expression, CancellationToken cancellationToken)
+    {
+        return await dbContext.SubscriptionBenefits
+            .AsNoTracking()
+            .Where(expression)
             .ToListAsync(cancellationToken);
     }
 }

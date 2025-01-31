@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Subscriptions.Domain.SubscriptionBenefits;
-using Subscriptions.Domain.Subscriptions;
 
 namespace Subscriptions.Infrustructure.SubscriptionBenefits;
 
@@ -10,9 +9,6 @@ internal sealed class SubscriptionBenefitConfiguration : IEntityTypeConfiguratio
     public void Configure(EntityTypeBuilder<SubscriptionBenefit> builder)
     {
         builder.HasKey(sb => sb.Id);
-
-        builder.Property(sb => sb.SubscriptionId)
-            .IsRequired();
 
         builder.OwnsOne(sb => sb.Benefit, benefit =>
         {
@@ -27,9 +23,7 @@ internal sealed class SubscriptionBenefitConfiguration : IEntityTypeConfiguratio
                 .HasMaxLength(255);
         });
 
-        builder.HasOne<Subscription>()
-            .WithMany(s => s.SubscriptionBenefits)
-            .HasForeignKey(sb => sb.SubscriptionId)
-            .OnDelete(DeleteBehavior.Cascade);
+        builder.HasMany(s => s.Subscriptions)
+            .WithMany(s => s.SubscriptionBenefits);
     }
 }

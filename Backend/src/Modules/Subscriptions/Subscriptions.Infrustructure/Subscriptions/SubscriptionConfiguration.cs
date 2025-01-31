@@ -19,8 +19,6 @@ internal sealed class SubscriptionConfiguration : IEntityTypeConfiguration<Subsc
             .IsRequired();
 
         builder.HasMany(s => s.SubscriptionBenefits)
-            .WithOne()
-            .HasForeignKey(sb => sb.SubscriptionId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .WithMany(s => s.Subscriptions);
     }
 }

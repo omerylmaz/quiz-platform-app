@@ -43,9 +43,20 @@ builder.Services.AddSubscriptionsModule(builder.Configuration);
 
 WebApplication app = builder.Build();
 
+app.MapOpenApi();
+
+
 if (app.Environment.IsDevelopment())
 {
     app.ApplyMigrations();
+    app.MapScalarApiReference(options =>
+    {
+        options.Servers =
+        [
+            new($"http://localhost:5000"),
+            new($"https://localhost:5001"),
+    ];
+    });
 }
 
 app.MapEndpoints();
@@ -55,8 +66,8 @@ app.MapHealthChecks("health", new HealthCheckOptions()
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 
-app.MapOpenApi();
-app.MapScalarApiReference();
+
+
 
 app.UseSerilogRequestLogging();
 

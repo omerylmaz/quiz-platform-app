@@ -18,7 +18,7 @@ internal sealed class SubscriptionRepository(SubscriptionsDbContext dbContext) :
 
     public async Task<IReadOnlyCollection<Subscription>> GetAllAsync(CancellationToken cancellationToken)
     {
-        return await dbContext.Subscriptions.AsNoTracking().ToListAsync(cancellationToken);
+        return await dbContext.Subscriptions.AsNoTracking().Include(s => s.SubscriptionBenefits).ToListAsync(cancellationToken);
     }
 
     public async Task<Subscription> GetAsync(Guid id, CancellationToken cancellationToken)
