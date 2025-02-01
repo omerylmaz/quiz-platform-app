@@ -1,6 +1,6 @@
-﻿using Common.Application.Data;
-using Common.Application.Messaging;
+﻿using Common.Application.Messaging;
 using Common.Domain;
+using Subscriptions.Application.Abstractions.Data;
 using Subscriptions.Domain.Subscriptions;
 
 namespace Subscriptions.Application.Subscriptions.CreateSubscription;

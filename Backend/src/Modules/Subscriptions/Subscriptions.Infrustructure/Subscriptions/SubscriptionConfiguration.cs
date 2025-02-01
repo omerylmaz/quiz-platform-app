@@ -20,5 +20,8 @@ internal sealed class SubscriptionConfiguration : IEntityTypeConfiguration<Subsc
 
         builder.HasMany(s => s.SubscriptionBenefits)
             .WithMany(s => s.Subscriptions);
+
+        //builder.HasMany<CustomerSubscription>()
+        //    .WithMany();
     }
 }

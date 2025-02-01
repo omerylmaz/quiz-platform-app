@@ -42,6 +42,80 @@ namespace Subscriptions.Infrustructure.Database.Migrations
                     b.ToTable("subscription_subscription_benefit", "subscriptions");
                 });
 
+            modelBuilder.Entity("Subscriptions.Domain.CustomerSubscriptions.CustomerSubscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("customer_id");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("end_date");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_active");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("start_date");
+
+                    b.Property<Guid>("SubscriptionId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("subscription_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_customer_subscriptions");
+
+                    b.HasIndex("CustomerId")
+                        .HasDatabaseName("ix_customer_subscriptions_customer_id");
+
+                    b.HasIndex("SubscriptionId")
+                        .HasDatabaseName("ix_customer_subscriptions_subscription_id");
+
+                    b.ToTable("customer_subscriptions", "subscriptions");
+                });
+
+            modelBuilder.Entity("Subscriptions.Domain.Customers.Customer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)")
+                        .HasColumnName("email");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("first_name");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("last_name");
+
+                    b.HasKey("Id")
+                        .HasName("pk_customers");
+
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasDatabaseName("ix_customers_email");
+
+                    b.ToTable("customers", "subscriptions");
+                });
+
             modelBuilder.Entity("Subscriptions.Domain.Payments.Payment", b =>
                 {
                     b.Property<Guid>("Id")
@@ -57,6 +131,10 @@ namespace Subscriptions.Infrustructure.Database.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_date");
 
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("customer_id");
+
                     b.Property<string>("PaymentStatus")
                         .IsRequired()
                         .HasColumnType("text")
@@ -68,12 +146,11 @@ namespace Subscriptions.Infrustructure.Database.Migrations
                         .HasColumnType("character varying(255)")
                         .HasColumnName("transaction_id");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("user_id");
-
                     b.HasKey("Id")
                         .HasName("pk_payments");
+
+                    b.HasIndex("CustomerId")
+                        .HasDatabaseName("ix_payments_customer_id");
 
                     b.ToTable("payments", "subscriptions");
                 });
@@ -114,39 +191,6 @@ namespace Subscriptions.Infrustructure.Database.Migrations
                     b.ToTable("subscriptions", "subscriptions");
                 });
 
-            modelBuilder.Entity("Subscriptions.Domain.UserSubscriptions.UserSubscription", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("end_date");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_active");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("start_date");
-
-                    b.Property<Guid>("SubscriptionId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("subscription_id");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_user_subscriptions");
-
-                    b.ToTable("user_subscriptions", "subscriptions");
-                });
-
             modelBuilder.Entity("SubscriptionSubscriptionBenefit", b =>
                 {
                     b.HasOne("Subscriptions.Domain.SubscriptionBenefits.SubscriptionBenefit", null)
@@ -162,6 +206,39 @@ namespace Subscriptions.Infrustructure.Database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_subscription_subscription_benefit_subscriptions_subscriptio");
+                });
+
+            modelBuilder.Entity("Subscriptions.Domain.CustomerSubscriptions.CustomerSubscription", b =>
+                {
+                    b.HasOne("Subscriptions.Domain.Customers.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_customer_subscriptions_customers_customer_id");
+
+                    b.HasOne("Subscriptions.Domain.Subscriptions.Subscription", "Subscription")
+                        .WithMany()
+                        .HasForeignKey("SubscriptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_customer_subscriptions_subscriptions_subscription_id");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Subscription");
+                });
+
+            modelBuilder.Entity("Subscriptions.Domain.Payments.Payment", b =>
+                {
+                    b.HasOne("Subscriptions.Domain.Customers.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired()
+                        .HasConstraintName("fk_payments_customers_customer_id");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Subscriptions.Domain.SubscriptionBenefits.SubscriptionBenefit", b =>

@@ -1,6 +1,6 @@
-﻿using Common.Application.Data;
-using Common.Application.Messaging;
+﻿using Common.Application.Messaging;
 using Common.Domain;
+using Quiz.Application.Abstractions.Data;
 using Quiz.Domain.Categories;
 
 namespace Quiz.Application.Categories.CreateCategory;

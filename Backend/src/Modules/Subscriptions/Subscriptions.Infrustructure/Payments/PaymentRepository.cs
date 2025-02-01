@@ -23,11 +23,11 @@ internal sealed class PaymentRepository(SubscriptionsDbContext dbContext) : IPay
             .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
     }
 
-    public async Task<IReadOnlyCollection<Payment>> GetAllByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+    public async Task<IReadOnlyCollection<Payment>> GetAllByCustomerIdAsync(Guid customerId, CancellationToken cancellationToken)
     {
         return await dbContext.Payments
             .AsNoTracking()
-            .Where(p => p.UserId == userId)
+            .Where(p => p.CustomerId == customerId)
             .ToListAsync(cancellationToken);
     }
 }

@@ -29,7 +29,9 @@ builder.Services.AddApplication([
 string cacheConnectionString = builder.Configuration.GetConnectionString("Cache")!;
 string databaseConnectionString = builder.Configuration.GetConnectionString("Database")!;
 
-builder.Services.AddInfrastructure(cacheConnectionString);
+builder.Services.AddInfrastructure(
+    [SubscriptionsModule.ConfigureConsumers],
+    cacheConnectionString);
 
 builder.Configuration.AddModuleConfiguration(["quizzes", "users", "subscriptions"]);
 

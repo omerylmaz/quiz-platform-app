@@ -16,7 +16,7 @@ internal sealed class CreatePayment : IEndpoint
         app.MapPost("payments", async (Request request, ISender sender, CancellationToken cancellationToken) =>
         {
             var command = new CreatePaymentCommand(
-                request.UserId,
+                request.CustomerId,
                 request.Amount,
                 request.TransactionId
             );
@@ -30,7 +30,7 @@ internal sealed class CreatePayment : IEndpoint
 
     internal sealed record Request
     {
-        public Guid UserId { get; init; }
+        public Guid CustomerId { get; init; }
         public decimal Amount { get; init; }
         public string TransactionId { get; init; }
     }

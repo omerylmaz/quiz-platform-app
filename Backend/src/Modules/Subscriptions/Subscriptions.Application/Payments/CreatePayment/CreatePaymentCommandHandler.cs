@@ -1,19 +1,24 @@
-﻿using Common.Application.Data;
-using Common.Application.Messaging;
+﻿using Common.Application.Messaging;
 using Common.Domain;
+using Subscriptions.Application.Abstractions.Data;
+using Subscriptions.Domain.Customers;
 using Subscriptions.Domain.Payments;
 
 namespace Subscriptions.Application.Payments.CreatePayment;
 
 internal sealed class CreatePaymentCommandHandler(
     IPaymentRepository paymentRepository,
+    ICustomerRepository customerRepository,
     IUnitOfWork unitOfWork) : ICommandHandler<CreatePaymentCommand, Guid>
 {
     public async Task<Result<Guid>> Handle(CreatePaymentCommand request, CancellationToken cancellationToken)
     {
-        // user id check
+        Customer? customer = await customerRepository.GetAsync(request.CustomerId, cancellationToken);
 
-        var payment = Payment.Create(request.UserId, request.Amount, request.TransactionId);
+        if (customer is null)
+            return Result.Failure<Guid>(CustomerErrors.NotFound(request.CustomerId));
+
+        var payment = Payment.Create(request.CustomerId, request.Amount, request.TransactionId);
 
         paymentRepository.Add(payment);
 

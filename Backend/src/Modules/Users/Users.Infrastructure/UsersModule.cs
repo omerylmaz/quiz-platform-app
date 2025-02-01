@@ -1,13 +1,13 @@
-﻿using Common.Application.Data;
-using Common.Infrastructure.Interceptors;
+﻿using Common.Infrastructure.Interceptors;
 using Common.Presentation.Endpoints;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.EntityFrameworkCore;
+using Users.Application.Abstractions.Data;
 using Users.Domain.Users;
 using Users.Infrastructure.Database;
 using Users.Infrastructure.Users;
-using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Users.Infrastructure;
 

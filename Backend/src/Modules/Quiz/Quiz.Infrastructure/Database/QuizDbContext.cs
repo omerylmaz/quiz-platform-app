@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
-using Common.Application.Data;
 using Microsoft.EntityFrameworkCore;
+using Quiz.Application.Abstractions.Data;
 using Quiz.Domain.Categories;
 using Quiz.Domain.Questions;
 using Quiz.Domain.QuizResults;

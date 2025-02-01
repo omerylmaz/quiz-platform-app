@@ -1,10 +1,10 @@
-﻿using Common.Application.Data;
-using Common.Infrastructure.Interceptors;
+﻿using Common.Infrastructure.Interceptors;
 using Common.Presentation.Endpoints;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quiz.Application.Abstractions.Data;
 using Quiz.Domain.Categories;
 using Quiz.Domain.Questions;
 using Quiz.Domain.QuizSets;

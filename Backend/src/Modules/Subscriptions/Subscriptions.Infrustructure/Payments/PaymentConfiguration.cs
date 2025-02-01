@@ -21,5 +21,9 @@ internal sealed class PaymentConfiguration : IEntityTypeConfiguration<Payment>
         builder.Property(p => p.PaymentStatus)
             .HasConversion<string>()
             .IsRequired();
+
+        builder.HasOne(p => p.Customer)
+            .WithMany()
+            .HasForeignKey(p => p.CustomerId);
     }
 }

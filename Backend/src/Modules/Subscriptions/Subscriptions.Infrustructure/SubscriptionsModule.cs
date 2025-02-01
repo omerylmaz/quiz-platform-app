@@ -1,19 +1,23 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Common.Infrastructure.Interceptors;
 using Common.Presentation.Endpoints;
-using Subscriptions.Infrustructure.Database;
-using Common.Infrastructure.Interceptors;
-using Common.Application.Data;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Subscriptions.Infrustructure.Payments;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Subscriptions.Application.Abstractions.Data;
+using Subscriptions.Domain.Customers;
+using Subscriptions.Domain.CustomerSubscriptions;
 using Subscriptions.Domain.Payments;
 using Subscriptions.Domain.SubscriptionBenefits;
+using Subscriptions.Domain.Subscriptions;
+using Subscriptions.Infrustructure.Customers;
+using Subscriptions.Infrustructure.CustomerSubscriptions;
+using Subscriptions.Infrustructure.Database;
+using Subscriptions.Infrustructure.Payments;
 using Subscriptions.Infrustructure.SubscriptionBenefits;
 using Subscriptions.Infrustructure.Subscriptions;
-using Subscriptions.Domain.Subscriptions;
-using Subscriptions.Infrustructure.UserSubscriptions;
-using Subscriptions.Domain.UserSubscriptions;
+using Subscriptions.Presentation.Customers;
 
 namespace Subscriptions.Infrustructure;
 
@@ -37,10 +41,16 @@ public static class SubscriptionsModule
         services.AddScoped<IPaymentRepository, PaymentRepository>();
         services.AddScoped<ISubscriptionBenefitRepository, SubscriptionBenefitRepository>();
         services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
-        services.AddScoped<IUserSubscriptionRepository, UserSubscriptionRepository>();
+        services.AddScoped<ICustomerSubscriptionRepository, CustomerSubscriptionRepository>();
+        services.AddScoped<ICustomerRepository, CustomerRepository>();
 
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<SubscriptionsDbContext>());
 
         return services;
+    }
+
+    public static void ConfigureConsumers(IRegistrationConfigurator registrationConfigurator)
+    {
+        registrationConfigurator.AddConsumer<UserRegisteredIntegrationEventConsumer>();
     }
 }

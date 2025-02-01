@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Common.Application\Common.Application.csproj" />
+    <ProjectReference Include="..\..\Subscriptions\Subscriptions.IntegrationEvents\Subscriptions.IntegrationEvents.csproj" />
     <ProjectReference Include="..\Users.Domain\Users.Domain.csproj" />
   </ItemGroup>
 

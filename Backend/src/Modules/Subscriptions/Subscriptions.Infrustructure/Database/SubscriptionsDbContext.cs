@@ -1,10 +1,11 @@
 ﻿using System.Reflection;
-using Common.Application.Data;
 using Microsoft.EntityFrameworkCore;
+using Subscriptions.Application.Abstractions.Data;
+using Subscriptions.Domain.Customers;
+using Subscriptions.Domain.CustomerSubscriptions;
 using Subscriptions.Domain.Payments;
 using Subscriptions.Domain.SubscriptionBenefits;
 using Subscriptions.Domain.Subscriptions;
-using Subscriptions.Domain.UserSubscriptions;
 
 namespace Subscriptions.Infrustructure.Database;
 
@@ -12,8 +13,9 @@ public sealed class SubscriptionsDbContext(DbContextOptions<SubscriptionsDbConte
 {
     internal DbSet<Subscription> Subscriptions { get; set; }
     internal DbSet<SubscriptionBenefit> SubscriptionBenefits { get; set; }
-    internal DbSet<UserSubscription> UserSubscriptions { get; set; }
+    internal DbSet<CustomerSubscription> CustomerSubscriptions { get; set; }
     internal DbSet<Payment> Payments { get; set; }
+    internal DbSet<Customer> Customers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

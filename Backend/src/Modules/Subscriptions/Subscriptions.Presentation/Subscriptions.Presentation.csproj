@@ -2,5 +2,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Common.Presentation\Common.Presentation.csproj" />
     <ProjectReference Include="..\Subscriptions.Application\Subscriptions.Application.csproj" />
+    <ProjectReference Include="..\Subscriptions.IntegrationEvents\Subscriptions.IntegrationEvents.csproj" />
   </ItemGroup>
 </Project>

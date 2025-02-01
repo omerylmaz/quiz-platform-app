@@ -1,6 +1,6 @@
-﻿using Common.Application.Data;
-using Common.Application.Messaging;
+﻿using Common.Application.Messaging;
 using Common.Domain;
+using Users.Application.Abstractions.Data;
 using Users.Domain.Users;
 
 namespace Users.Application.Users.RegisterUser;
