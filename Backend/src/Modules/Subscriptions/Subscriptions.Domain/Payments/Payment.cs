@@ -22,7 +22,7 @@ public sealed class Payment : Entity
             Amount = amount,
             PaymentStatus = PaymentStatus.Pending,
             TransactionId = transactionId,
-            CreatedDate = DateTime.Now
+            CreatedDate = DateTime.UtcNow
         };
 
         //Event: Payment Created Domain Event

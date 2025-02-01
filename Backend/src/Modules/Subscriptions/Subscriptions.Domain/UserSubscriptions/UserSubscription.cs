@@ -20,8 +20,8 @@ public sealed class UserSubscription : Entity
             Id = Guid.NewGuid(),
             UserId = userId,
             SubscriptionId = subscriptionId,
-            StartDate = DateTime.Now,
-            EndDate = DateTime.Now.AddDays(subscriptionDays),
+            StartDate = DateTime.UtcNow,
+            EndDate = DateTime.UtcNow.AddDays(subscriptionDays),
             IsActive = true  // For now
         };
 
@@ -32,7 +32,7 @@ public sealed class UserSubscription : Entity
 
     public void RenewSubscription(int subscriptionDays)
     {
-        EndDate = DateTime.Now.AddDays(subscriptionDays);
+        EndDate = DateTime.UtcNow.AddDays(subscriptionDays);
 
         //Event: Subscription Renewed Domain Event
     }

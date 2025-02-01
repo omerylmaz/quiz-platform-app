@@ -3,9 +3,4 @@
     <ProjectReference Include="..\..\..\Common\Common.Application\Common.Application.csproj" />
     <ProjectReference Include="..\Subscriptions.Domain\Subscriptions.Domain.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Payments\CreatePayment\" />
-    <Folder Include="Payments\GetPaymentsByUserId\" />
-    <Folder Include="UserSubscriptions\AddUserSubscription\" />
-  </ItemGroup>
 </Project>

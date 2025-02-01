@@ -6,5 +6,7 @@ internal static class Constants
     {
         internal const string Subscriptions = "Subscriptions";
         internal const string SubscriptionBenefits = "SubscriptionBenefits";
+        internal const string UserSubscriptions = "UserSubscriptions";
+        internal const string Payments = "Payments";
     }
 }
