@@ -37,7 +37,9 @@ builder.Configuration.AddModuleConfiguration(["quizzes", "users", "subscriptions
 
 builder.Services.AddHealthChecks()
     .AddNpgSql(databaseConnectionString)
-    .AddRedis(cacheConnectionString);
+    .AddRedis(cacheConnectionString)
+    .AddUrlGroup(new Uri(builder.Configuration.GetValue<string>("KeyCloak:HealthUrl")!), HttpMethod.Get, "keycloak");
+
 
 builder.Services.AddQuizModule(builder.Configuration);
 builder.Services.AddUsersModule(builder.Configuration);
@@ -68,11 +70,12 @@ app.MapHealthChecks("health", new HealthCheckOptions()
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 
-
-
-
 app.UseSerilogRequestLogging();
 
 app.UseExceptionHandler();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
 
 app.Run();

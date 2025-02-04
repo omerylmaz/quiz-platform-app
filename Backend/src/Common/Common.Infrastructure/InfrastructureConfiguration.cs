@@ -1,5 +1,6 @@
 ﻿using Common.Application.Caching;
 using Common.Application.EventBus;
+using Common.Infrastructure.Authentication;
 using Common.Infrastructure.Caching;
 using Common.Infrastructure.Interceptors;
 using MassTransit;
@@ -16,6 +17,8 @@ public static class InfrastructureConfiguration
         Action<IRegistrationConfigurator>[] moduleConfigureConsumers,
         string redisConnectionString)
     {
+        services.AddAuthServices();
+
         services.TryAddSingleton<ICacheService, CacheService>();
 
         services.TryAddSingleton<PublishDomainEventsInterceptor>();
