@@ -399,3 +399,5 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /Backend/src/.containers/db
+/Backend/src/.containers
+/Backend/src/.idea
